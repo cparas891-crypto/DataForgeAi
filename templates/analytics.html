@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Analytics | DataForge AI</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #08111f;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        /* =====================================
+           NAVIGATION
+        ===================================== */
+
+        .navbar {
+            width: 100%;
+            min-height: 70px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 30px;
+
+            background: #0d1829;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .logo {
+            color: #38bdf8;
+            text-decoration: none;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 7px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            background: #172337;
+        }
+
+        .nav-links .active {
+            color: #ffffff;
+            background: #0369a1;
+        }
+
+
+        /* =====================================
+           PAGE
+        ===================================== */
+
+        .page {
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 50px 30px;
+        }
+
+
+        /* =====================================
+           HEADER
+        ===================================== */
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .badge {
+            display: inline-block;
+
+            margin-bottom: 15px;
+            padding: 7px 12px;
+
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            border-radius: 20px;
+
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .page-header h1 {
+            margin-bottom: 10px;
+            font-size: 36px;
+        }
+
+        .page-header p {
+            max-width: 700px;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+
+        /* =====================================
+           METRIC CARDS
+        ===================================== */
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            position: relative;
+            overflow: hidden;
+
+            min-height: 170px;
+            padding: 24px;
+
+            background: #0d1829;
+            border: 1px solid #1e293b;
+            border-radius: 14px;
+
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.18);
+        }
+
+        .metric-card::before {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 3px;
+
+            background: linear-gradient(
+                90deg,
+                #0284c7,
+                #38bdf8
+            );
+
+            content: "";
+        }
+
+        .metric-icon {
+            width: 44px;
+            height: 44px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 20px;
+
+            border-radius: 10px;
+
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .metric-label {
+            margin-bottom: 8px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .metric-value {
+            color: #ffffff;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .metric-unit {
+            color: #64748b;
+            font-size: 13px;
+            font-weight: normal;
+        }
+
+
+        /* =====================================
+           CONTENT GRID
+        ===================================== */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .panel {
+            padding: 25px;
+
+            background: #0d1829;
+            border: 1px solid #1e293b;
+            border-radius: 14px;
+
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.16);
+        }
+
+        .panel-header {
+            margin-bottom: 22px;
+        }
+
+        .panel-header h2 {
+            margin-bottom: 7px;
+            font-size: 19px;
+        }
+
+        .panel-header p {
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+
+        /* =====================================
+           QUALITY VISUAL
+        ===================================== */
+
+        .quality-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .quality-ring {
+            width: 170px;
+            height: 170px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: conic-gradient(
+                #38bdf8 0deg,
+                #0284c7 calc(
+                    var(--quality) * 3.6deg
+                ),
+                #1e293b calc(
+                    var(--quality) * 3.6deg
+                ),
+                #1e293b 360deg
+            );
+        }
+
+        .quality-ring-inner {
+            width: 128px;
+            height: 128px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #0d1829;
+        }
+
+        .quality-number {
+            color: #ffffff;
+            font-size: 31px;
+            font-weight: bold;
+        }
+
+        .quality-caption {
+            margin-top: 5px;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .quality-details {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .quality-message {
+            margin-bottom: 18px;
+            color: #cbd5e1;
+            line-height: 1.7;
+        }
+
+        .progress {
+            width: 100%;
+            height: 10px;
+
+            overflow: hidden;
+
+            background: #1e293b;
+            border-radius: 10px;
+        }
+
+        .progress-bar {
+            width: var(--quality-percent);
+            height: 100%;
+
+            background: linear-gradient(
+                90deg,
+                #0284c7,
+                #38bdf8
+            );
+
+            border-radius: 10px;
+        }
+
+
+        /* =====================================
+           QUICK ACTIONS
+        ===================================== */
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .action-link {
+            display: block;
+
+            padding: 15px;
+
+            background: #101c2e;
+            border: 1px solid #1e293b;
+            border-radius: 9px;
+
+            color: #e2e8f0;
+            text-decoration: none;
+
+            transition: 0.2s;
+        }
+
+        .action-link:hover {
+            background: #172337;
+            border-color: #38bdf8;
+            transform: translateY(-1px);
+        }
+
+        .action-link strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #38bdf8;
+        }
+
+        .action-link span {
+            color: #94a3b8;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+
+        /* =====================================
+           EMPTY STATE
+        ===================================== */
+
+        .empty-notice {
+            margin-top: 20px;
+            padding: 18px;
+
+            background: rgba(234, 179, 8, 0.08);
+            border: 1px solid rgba(234, 179, 8, 0.25);
+            border-radius: 9px;
+
+            color: #fde68a;
+            line-height: 1.6;
+        }
+
+
+        /* =====================================
+           FOOTER
+        ===================================== */
+
+        .footer {
+            padding: 30px;
+            color: #64748b;
+            text-align: center;
+            font-size: 12px;
+        }
+
+
+        /* =====================================
+           RESPONSIVE
+        ===================================== */
+
+        @media (max-width: 1050px) {
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+                padding: 18px;
+            }
+
+            .page {
+                padding: 35px 15px;
+            }
+
+            .page-header h1 {
+                font-size: 29px;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quality-section {
+                justify-content: center;
+            }
+
+            .quality-details {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         NAVIGATION
+    ====================================== -->
+
+    <nav class="navbar">
+
+        <a
+            href="/"
+            class="logo"
+        >
+            DataForge AI
+        </a>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Dashboard
+            </a>
+
+            <a href="/upload">
+                Upload
+            </a>
+
+            <a href="/datasets">
+                Datasets
+            </a>
+
+            <a
+                href="/analytics"
+                class="active"
+            >
+                Analytics
+            </a>
+
+            <a href="/ai">
+                AI Analyst
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================
+         PAGE
+    ====================================== -->
+
+    <main class="page">
+
+
+        <!-- HEADER -->
+
+        <section class="page-header">
+
+            <div class="badge">
+                PLATFORM ANALYTICS
+            </div>
+
+            <h1>
+                Data Analytics
+            </h1>
+
+            <p>
+                View cumulative metrics for datasets processed
+                through DataForge AI, including data volume,
+                average quality, and memory usage.
+            </p>
+
+        </section>
+
+
+        <!-- =====================================
+             METRICS
+        ====================================== -->
+
+        <section class="metrics-grid">
+
+
+            <article class="metric-card">
+
+                <div class="metric-icon">
+                    D
+                </div>
+
+                <div class="metric-label">
+                    Total datasets
+                </div>
+
+                <div class="metric-value">
+                    {{ total_datasets | default(0) }}
+                </div>
+
+            </article>
+
+
+            <article class="metric-card">
+
+                <div class="metric-icon">
+                    Q
+                </div>
+
+                <div class="metric-label">
+                    Average quality score
+                </div>
+
+                <div class="metric-value">
+
+                    {{ avg_quality | default(0) }}
+
+                    <span class="metric-unit">
+                        /100
+                    </span>
+
+                </div>
+
+            </article>
+
+
+            <article class="metric-card">
+
+                <div class="metric-icon">
+                    R
+                </div>
+
+                <div class="metric-label">
+                    Total rows processed
+                </div>
+
+                <div class="metric-value">
+                    {{ total_rows | default("0") }}
+                </div>
+
+            </article>
+
+
+            <article class="metric-card">
+
+                <div class="metric-icon">
+                    M
+                </div>
+
+                <div class="metric-label">
+                    Total memory analyzed
+                </div>
+
+                <div class="metric-value">
+
+                    {{ total_memory | default(0) }}
+
+                    <span class="metric-unit">
+                        KB
+                    </span>
+
+                </div>
+
+            </article>
+
+
+        </section>
+
+
+        <!-- =====================================
+             LOWER PANELS
+        ====================================== -->
+
+        <section class="content-grid">
+
+
+            <!-- QUALITY PANEL -->
+
+            <article class="panel">
+
+                <div class="panel-header">
+
+                    <h2>
+                        Overall Data Quality
+                    </h2>
+
+                    <p>
+                        Average quality score across all
+                        processed datasets.
+                    </p>
+
+                </div>
+
+
+                <div class="quality-section">
+
+
+                    <div
+                        class="quality-ring"
+                        style="--quality: {{ avg_quality | default(0) }};"
+                    >
+
+                        <div class="quality-ring-inner">
+
+                            <div class="quality-number">
+                                {{ avg_quality | default(0) }}
+                            </div>
+
+                            <div class="quality-caption">
+                                out of 100
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="quality-details">
+
+                        {% if total_datasets | default(0) > 0 %}
+
+                            {% if avg_quality | default(0) >= 90 %}
+
+                                <p class="quality-message">
+                                    The datasets in your catalog
+                                    currently have an excellent
+                                    average quality score.
+                                </p>
+
+                            {% elif avg_quality | default(0) >= 70 %}
+
+                                <p class="quality-message">
+                                    The datasets in your catalog
+                                    currently have a moderate
+                                    average quality score.
+                                </p>
+
+                            {% else %}
+
+                                <p class="quality-message">
+                                    The catalog contains datasets
+                                    that may benefit from additional
+                                    data cleaning and validation.
+                                </p>
+
+                            {% endif %}
+
+
+                            <div class="progress">
+
+                                <div
+                                    class="progress-bar"
+                                    style="
+                                        --quality-percent:
+                                        {{ avg_quality | default(0) }}%;
+                                    "
+                                ></div>
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="empty-notice">
+                                Upload a dataset to begin generating
+                                platform analytics and quality metrics.
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                </div>
+
+            </article>
+
+
+            <!-- QUICK ACTIONS -->
+
+            <aside class="panel">
+
+                <div class="panel-header">
+
+                    <h2>
+                        Quick Actions
+                    </h2>
+
+                    <p>
+                        Continue working with your data.
+                    </p>
+
+                </div>
+
+
+                <div class="actions">
+
+                    <a
+                        href="/upload"
+                        class="action-link"
+                    >
+
+                        <strong>
+                            Upload Dataset
+                        </strong>
+
+                        <span>
+                            Profile a new CSV, JSON,
+                            XLSX, or ZIP file.
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="/datasets"
+                        class="action-link"
+                    >
+
+                        <strong>
+                            Dataset History
+                        </strong>
+
+                        <span>
+                            View all previously
+                            processed datasets.
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="/ai"
+                        class="action-link"
+                    >
+
+                        <strong>
+                            AI Analyst
+                        </strong>
+
+                        <span>
+                            Ask a data analysis
+                            question.
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="/report"
+                        class="action-link"
+                    >
+
+                        <strong>
+                            Download Report
+                        </strong>
+
+                        <span>
+                            Generate the latest
+                            executive PDF report.
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </aside>
+
+
+        </section>
+
+
+    </main>
+
+
+    <footer class="footer">
+        DataForge AI • Dataset Intelligence Platform
+    </footer>
+
+
+</body>
+
+</html>

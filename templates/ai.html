@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI Analyst | DataForge AI</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background: #08111f;
+
+            color: #ffffff;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+
+        /* ================================
+           NAVBAR
+        ================================ */
+
+        .navbar {
+            width: 100%;
+            min-height: 70px;
+
+            padding: 0 30px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: #0d1829;
+
+            border-bottom:
+                1px solid #1e293b;
+        }
+
+        .logo {
+            color: #38bdf8;
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+
+            padding: 10px 14px;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            text-decoration: none;
+
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+
+            background: #172337;
+        }
+
+        .nav-links .active {
+            background: #0369a1;
+
+            color: #ffffff;
+        }
+
+
+        /* ================================
+           PAGE
+        ================================ */
+
+        .page {
+            width: 100%;
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+            padding: 50px 30px;
+        }
+
+
+        /* ================================
+           HEADER
+        ================================ */
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .badge {
+            display: inline-block;
+
+            margin-bottom: 15px;
+
+            padding: 7px 12px;
+
+            color: #38bdf8;
+
+            background:
+                rgba(56, 189, 248, 0.1);
+
+            border:
+                1px solid
+                rgba(56, 189, 248, 0.25);
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+        .page-header h1 {
+            margin-bottom: 10px;
+
+            font-size: 36px;
+        }
+
+        .page-header p {
+            max-width: 700px;
+
+            color: #94a3b8;
+
+            line-height: 1.6;
+        }
+
+
+        /* ================================
+           GRID
+        ================================ */
+
+        .analyst-grid {
+            display: grid;
+
+            grid-template-columns:
+                2fr 1fr;
+
+            gap: 20px;
+        }
+
+
+        /* ================================
+           PANEL
+        ================================ */
+
+        .panel {
+            padding: 28px;
+
+            background: #0d1829;
+
+            border:
+                1px solid #1e293b;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 15px 35px
+                rgba(0, 0, 0, 0.18);
+        }
+
+        .panel-header {
+            margin-bottom: 22px;
+        }
+
+        .panel-header h2 {
+            margin-bottom: 7px;
+
+            font-size: 20px;
+        }
+
+        .panel-header p {
+            color: #94a3b8;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+
+        /* ================================
+           TEXT AREA
+        ================================ */
+
+        label {
+            display: block;
+
+            margin-bottom: 10px;
+
+            color: #cbd5e1;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+
+            min-height: 180px;
+
+            resize: vertical;
+
+            padding: 16px;
+
+            color: #ffffff;
+
+            background: #08111f;
+
+            border:
+                1px solid #334155;
+
+            border-radius: 9px;
+
+            outline: none;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 15px;
+
+            line-height: 1.6;
+        }
+
+        textarea:focus {
+            border-color: #38bdf8;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(56, 189, 248, 0.1);
+        }
+
+        textarea::placeholder {
+            color: #64748b;
+        }
+
+
+        /* ================================
+           BUTTON
+        ================================ */
+
+        .analyze-button {
+            width: 100%;
+
+            margin-top: 18px;
+
+            padding: 14px 20px;
+
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0284c7,
+                    #0369a1
+                );
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .analyze-button:hover {
+            background:
+                linear-gradient(
+                    135deg,
+                    #0ea5e9,
+                    #0284c7
+                );
+
+            transform: translateY(-1px);
+        }
+
+
+        /* ================================
+           RESPONSE
+        ================================ */
+
+        .response-card {
+            margin-top: 22px;
+
+            padding: 22px;
+
+            background: #101c2e;
+
+            border:
+                1px solid #334155;
+
+            border-radius: 10px;
+        }
+
+        .response-label {
+            margin-bottom: 12px;
+
+            color: #38bdf8;
+
+            font-weight: bold;
+
+            font-size: 13px;
+        }
+
+        .response-content {
+            color: #cbd5e1;
+
+            line-height: 1.7;
+
+            white-space: pre-wrap;
+        }
+
+
+        /* ================================
+           SUGGESTION CARDS
+        ================================ */
+
+        .suggestions {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 12px;
+        }
+
+        .suggestion {
+            padding: 16px;
+
+            color: #cbd5e1;
+
+            background: #101c2e;
+
+            border:
+                1px solid #1e293b;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .suggestion:hover {
+            border-color: #38bdf8;
+
+            background: #172337;
+        }
+
+        .suggestion strong {
+            display: block;
+
+            margin-bottom: 5px;
+
+            color: #38bdf8;
+
+            font-size: 14px;
+        }
+
+        .suggestion span {
+            color: #94a3b8;
+
+            font-size: 12px;
+
+            line-height: 1.45;
+        }
+
+
+        /* ================================
+           INFO CARD
+        ================================ */
+
+        .info-card {
+            margin-top: 20px;
+
+            padding: 18px;
+
+            background:
+                rgba(56, 189, 248, 0.06);
+
+            border:
+                1px solid
+                rgba(56, 189, 248, 0.2);
+
+            border-radius: 9px;
+
+            color: #94a3b8;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        /* ================================
+           FOOTER
+        ================================ */
+
+        .footer {
+            padding: 30px;
+
+            color: #64748b;
+
+            text-align: center;
+
+            font-size: 12px;
+        }
+
+
+        /* ================================
+           RESPONSIVE
+        ================================ */
+
+        @media (max-width: 900px) {
+
+            .analyst-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 15px;
+
+                padding: 18px;
+            }
+
+            .page {
+                padding: 35px 15px;
+            }
+
+            .page-header h1 {
+                font-size: 29px;
+            }
+
+            .panel {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="navbar">
+
+        <a
+            href="/"
+            class="logo"
+        >
+            DataForge AI
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="/">
+                Dashboard
+            </a>
+
+            <a href="/upload">
+                Upload
+            </a>
+
+            <a href="/datasets">
+                Datasets
+            </a>
+
+            <a href="/analytics">
+                Analytics
+            </a>
+
+            <a
+                href="/ai"
+                class="active"
+            >
+                AI Analyst
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <main class="page">
+
+
+        <!-- HEADER -->
+
+        <section class="page-header">
+
+            <div class="badge">
+                DATA ASSISTANT
+            </div>
+
+            <h1>
+                AI Analyst
+            </h1>
+
+            <p>
+                Ask a question about data quality,
+                cleaning, analysis, validation,
+                or ETL strategy.
+            </p>
+
+        </section>
+
+
+        <section class="analyst-grid">
+
+
+            <!-- AI QUESTION PANEL -->
+
+            <article class="panel">
+
+                <div class="panel-header">
+
+                    <h2>
+                        Ask DataForge
+                    </h2>
+
+                    <p>
+                        Enter an analysis question
+                        below to receive suggested
+                        next steps.
+                    </p>
+
+                </div>
+
+
+                <form
+                    action="/ai"
+                    method="post"
+                >
+
+                    <label for="question">
+                        Analysis Question
+                    </label>
+
+                    <textarea
+                        id="question"
+                        name="question"
+                        placeholder="Example: How should I investigate missing values in this dataset?"
+                        required
+                    ></textarea>
+
+
+                    <button
+                        type="submit"
+                        class="analyze-button"
+                    >
+                        Analyze Question
+                    </button>
+
+                </form>
+
+
+                {% if response %}
+
+                    <div class="response-card">
+
+                        <div class="response-label">
+                            DATAFORGE ANALYSIS
+                        </div>
+
+                        <div class="response-content">
+                            {{ response }}
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+
+            </article>
+
+
+            <!-- SIDEBAR -->
+
+            <aside class="panel">
+
+                <div class="panel-header">
+
+                    <h2>
+                        Suggested Questions
+                    </h2>
+
+                    <p>
+                        Select an example to place it
+                        into the analyst.
+                    </p>
+
+                </div>
+
+
+                <div class="suggestions">
+
+
+                    <div
+                        class="suggestion"
+                        data-question="How should I investigate missing values in my dataset?"
+                    >
+
+                        <strong>
+                            Missing Values
+                        </strong>
+
+                        <span>
+                            Review strategies for
+                            identifying incomplete data.
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="suggestion"
+                        data-question="How should I investigate duplicate records?"
+                    >
+
+                        <strong>
+                            Duplicate Records
+                        </strong>
+
+                        <span>
+                            Explore duplicate detection
+                            and cleanup strategies.
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="suggestion"
+                        data-question="How can I improve the quality of this dataset?"
+                    >
+
+                        <strong>
+                            Data Quality
+                        </strong>
+
+                        <span>
+                            Identify areas that can
+                            improve dataset reliability.
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="suggestion"
+                        data-question="What should I check before building an ETL pipeline?"
+                    >
+
+                        <strong>
+                            ETL Preparation
+                        </strong>
+
+                        <span>
+                            Review considerations before
+                            moving data through a pipeline.
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="info-card">
+                    The current AI Analyst in your
+                    <strong>app.py</strong> is a guided
+                    analysis assistant. It does not yet
+                    call an external AI model. We can make
+                    that a future DataForge upgrade.
+                </div>
+
+            </aside>
+
+
+        </section>
+
+
+    </main>
+
+
+    <footer class="footer">
+        DataForge AI • Dataset Intelligence Platform
+    </footer>
+
+
+    <script>
+
+        const questionBox =
+            document.getElementById(
+                "question"
+            );
+
+        const suggestions =
+            document.querySelectorAll(
+                ".suggestion"
+            );
+
+
+        suggestions.forEach(
+            function (suggestion) {
+
+                suggestion.addEventListener(
+                    "click",
+                    function () {
+
+                        const question =
+                            suggestion.getAttribute(
+                                "data-question"
+                            );
+
+                        questionBox.value =
+                            question;
+
+                        questionBox.focus();
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

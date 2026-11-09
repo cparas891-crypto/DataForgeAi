@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dataset History | DataForge AI</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #08111f;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+
+        /* =====================================
+           NAVIGATION
+        ===================================== */
+
+        .navbar {
+            width: 100%;
+            min-height: 70px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 30px;
+
+            background: #0d1829;
+
+            border-bottom:
+                1px solid #1e293b;
+        }
+
+        .logo {
+            color: #38bdf8;
+            text-decoration: none;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+
+            padding: 10px 14px;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            background: #172337;
+            color: #ffffff;
+        }
+
+        .nav-links .active {
+            background: #0369a1;
+            color: #ffffff;
+        }
+
+
+        /* =====================================
+           PAGE
+        ===================================== */
+
+        .page {
+            width: 100%;
+            max-width: 1400px;
+
+            margin: 0 auto;
+
+            padding: 50px 30px;
+        }
+
+
+        /* =====================================
+           HEADER
+        ===================================== */
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .badge {
+            display: inline-block;
+
+            color: #38bdf8;
+
+            background:
+                rgba(56, 189, 248, 0.1);
+
+            border:
+                1px solid
+                rgba(56, 189, 248, 0.25);
+
+            padding: 7px 12px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            margin-bottom: 15px;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+
+        /* =====================================
+           SUMMARY CARD
+        ===================================== */
+
+        .summary-card {
+            background: #0d1829;
+
+            border:
+                1px solid #1e293b;
+
+            border-radius: 12px;
+
+            padding: 22px;
+
+            margin-bottom: 25px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+
+            flex-wrap: wrap;
+        }
+
+        .summary-label {
+            color: #94a3b8;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .summary-value {
+            color: #ffffff;
+
+            font-size: 28px;
+
+            font-weight: bold;
+        }
+
+        .upload-button {
+            display: inline-block;
+
+            background: #0284c7;
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            padding: 12px 18px;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+        }
+
+        .upload-button:hover {
+            background: #0ea5e9;
+        }
+
+
+        /* =====================================
+           TABLE CARD
+        ===================================== */
+
+        .table-card {
+            background: #0d1829;
+
+            border:
+                1px solid #1e293b;
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.2);
+        }
+
+        .table-title {
+            padding: 20px 22px;
+
+            border-bottom:
+                1px solid #1e293b;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            color: #e2e8f0;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 950px;
+        }
+
+        th {
+            text-align: left;
+
+            padding: 15px;
+
+            background: #101c2e;
+
+            color: #94a3b8;
+
+            font-size: 12px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+
+            border-bottom:
+                1px solid #1e293b;
+        }
+
+        td {
+            padding: 15px;
+
+            color: #cbd5e1;
+
+            font-size: 14px;
+
+            border-bottom:
+                1px solid #1e293b;
+        }
+
+        tbody tr {
+            transition: 0.2s;
+        }
+
+        tbody tr:hover {
+            background: #101c2e;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+
+        /* =====================================
+           FILE INFO
+        ===================================== */
+
+        .filename {
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .dataset-id {
+            color: #64748b;
+        }
+
+
+        /* =====================================
+           QUALITY SCORE
+        ===================================== */
+
+        .quality {
+            display: inline-block;
+
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+        .quality-good {
+            background:
+                rgba(34, 197, 94, 0.12);
+
+            color: #4ade80;
+
+            border:
+                1px solid
+                rgba(34, 197, 94, 0.25);
+        }
+
+        .quality-medium {
+            background:
+                rgba(234, 179, 8, 0.12);
+
+            color: #facc15;
+
+            border:
+                1px solid
+                rgba(234, 179, 8, 0.25);
+        }
+
+        .quality-low {
+            background:
+                rgba(239, 68, 68, 0.12);
+
+            color: #f87171;
+
+            border:
+                1px solid
+                rgba(239, 68, 68, 0.25);
+        }
+
+
+        /* =====================================
+           EMPTY STATE
+        ===================================== */
+
+        .empty-state {
+            padding: 70px 30px;
+
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 70px;
+            height: 70px;
+
+            margin: 0 auto 20px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                rgba(56, 189, 248, 0.1);
+
+            color: #38bdf8;
+
+            font-size: 28px;
+        }
+
+        .empty-state h2 {
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            color: #94a3b8;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =====================================
+           FOOTER
+        ===================================== */
+
+        .footer {
+            text-align: center;
+
+            color: #64748b;
+
+            font-size: 12px;
+
+            padding: 30px;
+        }
+
+
+        /* =====================================
+           RESPONSIVE
+        ===================================== */
+
+        @media (max-width: 800px) {
+
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+
+                padding: 18px;
+
+                gap: 15px;
+            }
+
+            .page {
+                padding:
+                    35px 15px;
+            }
+
+            .page-header h1 {
+                font-size: 29px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         NAVIGATION
+    ====================================== -->
+
+    <nav class="navbar">
+
+        <a
+            href="/"
+            class="logo"
+        >
+            DataForge AI
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="/">
+                Dashboard
+            </a>
+
+            <a href="/upload">
+                Upload
+            </a>
+
+            <a
+                href="/datasets"
+                class="active"
+            >
+                Datasets
+            </a>
+
+            <a href="/analytics">
+                Analytics
+            </a>
+
+            <a href="/ai">
+                AI Analyst
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================
+         PAGE
+    ====================================== -->
+
+    <main class="page">
+
+
+        <!-- HEADER -->
+
+        <div class="page-header">
+
+            <div class="badge">
+                DATA CATALOG
+            </div>
+
+            <h1>
+                Dataset History
+            </h1>
+
+            <p>
+                Review every dataset processed
+                through DataForge AI and its
+                associated quality metrics.
+            </p>
+
+        </div>
+
+
+        <!-- SUMMARY -->
+
+        <div class="summary-card">
+
+            <div>
+
+                <div class="summary-label">
+                    Total datasets
+                </div>
+
+                <div class="summary-value">
+                    {{ datasets|length }}
+                </div>
+
+            </div>
+
+
+            <a
+                href="/upload"
+                class="upload-button"
+            >
+                + Upload Dataset
+            </a>
+
+        </div>
+
+
+        <!-- =====================================
+             DATASET TABLE
+        ====================================== -->
+
+        <div class="table-card">
+
+            <div class="table-title">
+                Dataset Catalog
+            </div>
+
+
+            {% if datasets %}
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    ID
+                                </th>
+
+                                <th>
+                                    Dataset
+                                </th>
+
+                                <th>
+                                    Uploaded
+                                </th>
+
+                                <th>
+                                    Rows
+                                </th>
+
+                                <th>
+                                    Columns
+                                </th>
+
+                                <th>
+                                    Missing
+                                </th>
+
+                                <th>
+                                    Duplicates
+                                </th>
+
+                                <th>
+                                    Quality
+                                </th>
+
+                                <th>
+                                    Memory
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                            {% for dataset in datasets %}
+
+                                <tr>
+
+                                    <td>
+                                        <span class="dataset-id">
+                                            #{{ dataset[0] }}
+                                        </span>
+                                    </td>
+
+
+                                    <td>
+                                        <span class="filename">
+                                            {{ dataset[1] }}
+                                        </span>
+                                    </td>
+
+
+                                    <td>
+                                        {{ dataset[2] }}
+                                    </td>
+
+
+                                    <td>
+                                        {{ "{:,}".format(dataset[3]) }}
+                                    </td>
+
+
+                                    <td>
+                                        {{ dataset[4] }}
+                                    </td>
+
+
+                                    <td>
+                                        {{ "{:,}".format(dataset[5]) }}
+                                    </td>
+
+
+                                    <td>
+                                        {{ "{:,}".format(dataset[6]) }}
+                                    </td>
+
+
+                                    <td>
+
+                                        {% if dataset[7] >= 90 %}
+
+                                            <span
+                                                class="
+                                                    quality
+                                                    quality-good
+                                                "
+                                            >
+                                                {{ dataset[7] }}/100
+                                            </span>
+
+                                        {% elif dataset[7] >= 70 %}
+
+                                            <span
+                                                class="
+                                                    quality
+                                                    quality-medium
+                                                "
+                                            >
+                                                {{ dataset[7] }}/100
+                                            </span>
+
+                                        {% else %}
+
+                                            <span
+                                                class="
+                                                    quality
+                                                    quality-low
+                                                "
+                                            >
+                                                {{ dataset[7] }}/100
+                                            </span>
+
+                                        {% endif %}
+
+                                    </td>
+
+
+                                    <td>
+                                        {{ dataset[8] }} KB
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+            {% else %}
+
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        +
+                    </div>
+
+                    <h2>
+                        No datasets yet
+                    </h2>
+
+                    <p>
+                        Upload your first dataset
+                        to begin building your
+                        DataForge catalog.
+                    </p>
+
+                    <a
+                        href="/upload"
+                        class="upload-button"
+                    >
+                        Upload Dataset
+                    </a>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+
+    </main>
+
+
+    <div class="footer">
+        DataForge AI • Dataset Intelligence Platform
+    </div>
+
+
+</body>
+
+</html>

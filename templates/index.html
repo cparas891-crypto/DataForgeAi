@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard | DataForge AI</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #08111f;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        /* =====================================
+           NAVIGATION
+        ===================================== */
+
+        .navbar {
+            width: 100%;
+            min-height: 70px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 30px;
+
+            background: #0d1829;
+
+            border-bottom:
+                1px solid #1e293b;
+        }
+
+        .logo {
+            color: #38bdf8;
+
+            font-size: 22px;
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+
+            padding: 10px 12px;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            text-decoration: none;
+
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            background: #172337;
+        }
+
+        .nav-links .active {
+            color: #ffffff;
+            background: #0369a1;
+        }
+
+
+        /* =====================================
+           PAGE
+        ===================================== */
+
+        .page {
+            width: 100%;
+            max-width: 1300px;
+
+            margin: 0 auto;
+
+            padding: 55px 30px;
+        }
+
+
+        /* =====================================
+           HERO
+        ===================================== */
+
+        .hero {
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 48px;
+
+            margin-bottom: 34px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0d1829,
+                    #101f35
+                );
+
+            border:
+                1px solid #1e293b;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.2);
+        }
+
+        .hero::after {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+
+            width: 300px;
+            height: 300px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(56, 189, 248, 0.07);
+
+            content: "";
+        }
+
+        .badge {
+            position: relative;
+            z-index: 1;
+
+            display: inline-block;
+
+            margin-bottom: 18px;
+
+            padding: 7px 12px;
+
+            color: #38bdf8;
+
+            background:
+                rgba(56, 189, 248, 0.1);
+
+            border:
+                1px solid
+                rgba(56, 189, 248, 0.25);
+
+            border-radius: 20px;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .hero h1 {
+            position: relative;
+            z-index: 1;
+
+            margin-bottom: 15px;
+
+            font-size: 42px;
+        }
+
+        .hero h1 span {
+            color: #38bdf8;
+        }
+
+        .hero p {
+            position: relative;
+            z-index: 1;
+
+            max-width: 720px;
+
+            margin-bottom: 28px;
+
+            color: #94a3b8;
+
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            position: relative;
+            z-index: 1;
+
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 12px;
+        }
+
+        .primary-button,
+        .secondary-button {
+            display: inline-block;
+
+            padding: 13px 20px;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+            transition: 0.2s;
+        }
+
+        .primary-button {
+            color: #ffffff;
+            background: #0284c7;
+        }
+
+        .primary-button:hover {
+            background: #0ea5e9;
+            transform: translateY(-1px);
+        }
+
+        .secondary-button {
+            color: #e2e8f0;
+
+            background: #172337;
+
+            border:
+                1px solid #334155;
+        }
+
+        .secondary-button:hover {
+            color: #ffffff;
+            border-color: #38bdf8;
+        }
+
+
+        /* =====================================
+           SECTION HEADER
+        ===================================== */
+
+        .section-header {
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            margin-bottom: 7px;
+
+            font-size: 22px;
+        }
+
+        .section-header p {
+            color: #94a3b8;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =====================================
+           FEATURE GRID
+        ===================================== */
+
+        .feature-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+
+            margin-bottom: 38px;
+        }
+
+        .feature-card {
+            display: flex;
+            flex-direction: column;
+
+            min-height: 260px;
+
+            padding: 25px;
+
+            background: #0d1829;
+
+            border:
+                1px solid #1e293b;
+
+            border-radius: 14px;
+
+            transition: 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+
+            border-color:
+                rgba(56, 189, 248, 0.5);
+
+            box-shadow:
+                0 15px 35px
+                rgba(0, 0, 0, 0.18);
+        }
+
+        .feature-icon {
+            width: 46px;
+            height: 46px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 18px;
+
+            color: #38bdf8;
+
+            background:
+                rgba(56, 189, 248, 0.1);
+
+            border-radius: 10px;
+
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+
+            font-size: 18px;
+        }
+
+        .feature-card p {
+            flex-grow: 1;
+
+            margin-bottom: 20px;
+
+            color: #94a3b8;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+        .feature-card a {
+            color: #38bdf8;
+
+            font-size: 14px;
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+
+        /* =====================================
+           CLEANING FEATURE
+        ===================================== */
+
+        .cleaning-card {
+            position: relative;
+
+            border-color:
+                rgba(34, 197, 94, 0.35);
+        }
+
+        .new-badge {
+            position: absolute;
+
+            top: 18px;
+            right: 18px;
+
+            padding: 5px 9px;
+
+            color: #4ade80;
+
+            background:
+                rgba(34, 197, 94, 0.1);
+
+            border:
+                1px solid
+                rgba(34, 197, 94, 0.25);
+
+            border-radius: 20px;
+
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .cleaning-card .feature-icon {
+            color: #4ade80;
+
+            background:
+                rgba(34, 197, 94, 0.1);
+        }
+
+        .cleaning-card a {
+            color: #4ade80;
+        }
+
+
+        /* =====================================
+           WORKFLOW
+        ===================================== */
+
+        .workflow {
+            padding: 30px;
+
+            margin-bottom: 35px;
+
+            background: #0d1829;
+
+            border:
+                1px solid #1e293b;
+
+            border-radius: 14px;
+        }
+
+        .workflow-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 18px;
+
+            margin-top: 25px;
+        }
+
+        .workflow-item {
+            position: relative;
+
+            padding: 20px;
+
+            background: #101c2e;
+
+            border:
+                1px solid #1e293b;
+
+            border-radius: 10px;
+        }
+
+        .step-number {
+            width: 34px;
+            height: 34px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 15px;
+
+            color: #ffffff;
+
+            background: #0369a1;
+
+            border-radius: 50%;
+
+            font-weight: bold;
+        }
+
+        .workflow-item strong {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #ffffff;
+        }
+
+        .workflow-item span {
+            color: #94a3b8;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+        .workflow-item.clean-step {
+            border-color:
+                rgba(34, 197, 94, 0.3);
+        }
+
+        .workflow-item.clean-step
+        .step-number {
+            background: #15803d;
+        }
+
+
+        /* =====================================
+           PLATFORM CAPABILITIES
+        ===================================== */
+
+        .capabilities {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 20px;
+        }
+
+        .capability-panel {
+            padding: 28px;
+
+            background: #0d1829;
+
+            border:
+                1px solid #1e293b;
+
+            border-radius: 14px;
+        }
+
+        .capability-panel h2 {
+            margin-bottom: 8px;
+
+            font-size: 20px;
+        }
+
+        .capability-panel > p {
+            margin-bottom: 22px;
+
+            color: #94a3b8;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+        .capability-list {
+            display: grid;
+
+            gap: 11px;
+        }
+
+        .capability {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 12px;
+
+            color: #cbd5e1;
+
+            background: #101c2e;
+
+            border:
+                1px solid #1e293b;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+        }
+
+        .check {
+            width: 24px;
+            height: 24px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #4ade80;
+
+            background:
+                rgba(34, 197, 94, 0.1);
+
+            border-radius: 50%;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+
+        /* =====================================
+           FOOTER
+        ===================================== */
+
+        .footer {
+            padding: 30px;
+
+            color: #64748b;
+
+            text-align: center;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================
+           RESPONSIVE
+        ===================================== */
+
+        @media (max-width: 1100px) {
+
+            .feature-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .workflow-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            .capabilities {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+
+                padding: 18px;
+
+                gap: 15px;
+            }
+
+            .page {
+                padding: 35px 15px;
+            }
+
+            .hero {
+                padding: 28px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .feature-grid,
+            .workflow-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         NAVIGATION
+    ====================================== -->
+
+    <nav class="navbar">
+
+        <a
+            href="/"
+            class="logo"
+        >
+            DataForge AI
+        </a>
+
+
+        <div class="nav-links">
+
+            <a
+                href="/"
+                class="active"
+            >
+                Dashboard
+            </a>
+
+            <a href="/upload">
+                Upload
+            </a>
+
+            <a href="/datasets">
+                Datasets
+            </a>
+
+            <a href="/clean">
+                Cleaning Studio
+            </a>
+
+            <a href="/analytics">
+                Analytics
+            </a>
+
+            <a href="/ai">
+                AI Analyst
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================
+         MAIN PAGE
+    ====================================== -->
+
+    <main class="page">
+
+
+        <!-- =================================
+             HERO
+        ================================== -->
+
+        <section class="hero">
+
+            <div class="badge">
+                DATA INTELLIGENCE PLATFORM
+            </div>
+
+            <h1>
+                Welcome to
+                <span>DataForge AI</span>
+            </h1>
+
+            <p>
+                Upload, profile, clean, analyze, and export
+                datasets from one streamlined workspace.
+                DataForge helps identify quality issues,
+                transform messy data, visualize numerical
+                distributions, and generate reports.
+            </p>
+
+
+            <div class="hero-actions">
+
+                <a
+                    href="/upload"
+                    class="primary-button"
+                >
+                    Upload Dataset
+                </a>
+
+                <a
+                    href="/clean"
+                    class="secondary-button"
+                >
+                    Open Cleaning Studio
+                </a>
+
+                <a
+                    href="/datasets"
+                    class="secondary-button"
+                >
+                    Dataset History
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             WORKSPACE
+        ================================== -->
+
+        <div class="section-header">
+
+            <h2>
+                DataForge Workspace
+            </h2>
+
+            <p>
+                Move from raw files to cleaned,
+                analyzed, and exportable datasets.
+            </p>
+
+        </div>
+
+
+        <section class="feature-grid">
+
+
+            <!-- UPLOAD -->
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    UP
+                </div>
+
+                <h3>
+                    Dataset Upload
+                </h3>
+
+                <p>
+                    Import CSV, JSON, XLSX, and ZIP
+                    datasets for automatic profiling
+                    and quality analysis.
+                </p>
+
+                <a href="/upload">
+                    Upload dataset →
+                </a>
+
+            </article>
+
+
+            <!-- HISTORY -->
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    DB
+                </div>
+
+                <h3>
+                    Dataset History
+                </h3>
+
+                <p>
+                    Review uploaded datasets and compare
+                    rows, columns, missing values,
+                    duplicates, and quality scores.
+                </p>
+
+                <a href="/datasets">
+                    Open catalog →
+                </a>
+
+            </article>
+
+
+            <!-- CLEANING -->
+
+            <article
+                class="
+                    feature-card
+                    cleaning-card
+                "
+            >
+
+                <div class="new-badge">
+                    PHASE 6
+                </div>
+
+                <div class="feature-icon">
+                    CL
+                </div>
+
+                <h3>
+                    Cleaning Studio
+                </h3>
+
+                <p>
+                    Remove duplicates, handle missing
+                    values, trim text, standardize
+                    column names, compare quality,
+                    and export cleaned datasets.
+                </p>
+
+                <a href="/clean">
+                    Clean a dataset →
+                </a>
+
+            </article>
+
+
+            <!-- ANALYTICS -->
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    AN
+                </div>
+
+                <h3>
+                    Analytics
+                </h3>
+
+                <p>
+                    Track dataset volume, average
+                    quality, processed rows, and
+                    total memory analyzed.
+                </p>
+
+                <a href="/analytics">
+                    View analytics →
+                </a>
+
+            </article>
+
+
+            <!-- AI -->
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    AI
+                </div>
+
+                <h3>
+                    AI Analyst
+                </h3>
+
+                <p>
+                    Ask data-quality and analysis
+                    questions and receive guided
+                    recommendations for next steps.
+                </p>
+
+                <a href="/ai">
+                    Open AI Analyst →
+                </a>
+
+            </article>
+
+
+            <!-- REPORT -->
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    PDF
+                </div>
+
+                <h3>
+                    Executive Reports
+                </h3>
+
+                <p>
+                    Generate a downloadable PDF
+                    containing metrics from the
+                    latest profiled dataset.
+                </p>
+
+                <a href="/report">
+                    Download report →
+                </a>
+
+            </article>
+
+        </section>
+
+
+        <!-- =================================
+             WORKFLOW
+        ================================== -->
+
+        <section class="workflow">
+
+
+            <div class="section-header">
+
+                <h2>
+                    DataForge Pipeline
+                </h2>
+
+                <p>
+                    Follow your dataset from ingestion
+                    through cleaning and reporting.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-grid">
+
+
+                <div class="workflow-item">
+
+                    <div class="step-number">
+                        1
+                    </div>
+
+                    <strong>
+                        Ingest
+                    </strong>
+
+                    <span>
+                        Import CSV, JSON,
+                        XLSX, or ZIP data.
+                    </span>
+
+                </div>
+
+
+                <div class="workflow-item">
+
+                    <div class="step-number">
+                        2
+                    </div>
+
+                    <strong>
+                        Profile
+                    </strong>
+
+                    <span>
+                        Measure structure,
+                        nulls, duplicates,
+                        memory, and quality.
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="
+                        workflow-item
+                        clean-step
+                    "
+                >
+
+                    <div class="step-number">
+                        3
+                    </div>
+
+                    <strong>
+                        Clean
+                    </strong>
+
+                    <span>
+                        Transform messy data
+                        using the Cleaning
+                        Studio pipeline.
+                    </span>
+
+                </div>
+
+
+                <div class="workflow-item">
+
+                    <div class="step-number">
+                        4
+                    </div>
+
+                    <strong>
+                        Analyze
+                    </strong>
+
+                    <span>
+                        Review statistics,
+                        visualizations, history,
+                        and platform metrics.
+                    </span>
+
+                </div>
+
+
+                <div class="workflow-item">
+
+                    <div class="step-number">
+                        5
+                    </div>
+
+                    <strong>
+                        Export
+                    </strong>
+
+                    <span>
+                        Download cleaned CSV
+                        or Excel data and
+                        executive reports.
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             CAPABILITIES
+        ================================== -->
+
+        <section class="capabilities">
+
+
+            <article class="capability-panel">
+
+                <h2>
+                    Supported Data
+                </h2>
+
+                <p>
+                    DataForge currently works with
+                    common structured and
+                    semi-structured dataset formats.
+                </p>
+
+
+                <div class="capability-list">
+
+                    <div class="capability">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        CSV datasets
+
+                    </div>
+
+
+                    <div class="capability">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        JSON and JSON Lines
+
+                    </div>
+
+
+                    <div class="capability">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        Excel XLSX workbooks
+
+                    </div>
+
+
+                    <div class="capability">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        ZIP archives containing
+                        supported datasets
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <article class="capability-panel">
+
+                <h2>
+                    Phase 6 Cleaning
+                </h2>
+
+                <p>
+                    The Cleaning Studio extends DataForge
+                    from inspection into actual
+                    dataset transformation.
+                </p>
+
+
+                <div class="capability-list">
+
+                    <div class="capability">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        Duplicate removal
+
+                    </div>
+
+
+                    <div class="capability">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        Missing-value handling
+
+                    </div>
+
+
+                    <div class="capability">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        Text-space cleanup and
+                        column standardization
+
+                    </div>
+
+
+                    <div class="capability">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        Cleaned CSV and
+                        XLSX export
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
+
+    <footer class="footer">
+        DataForge AI • Dataset Intelligence Platform • Phase 6
+    </footer>
+
+
+</body>
+
+</html>

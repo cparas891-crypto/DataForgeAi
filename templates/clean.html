@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Cleaning Studio | DataForge AI</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #08111f;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* =====================================
+           NAVIGATION
+        ===================================== */
+
+        .navbar {
+            width: 100%;
+            min-height: 70px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 30px;
+
+            background: #0d1829;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .logo {
+            color: #38bdf8;
+            font-size: 22px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            padding: 10px 12px;
+
+            color: #cbd5e1;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+            text-decoration: none;
+
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            background: #172337;
+        }
+
+        .nav-links .active {
+            color: #ffffff;
+            background: #0369a1;
+        }
+
+        /* =====================================
+           PAGE
+        ===================================== */
+
+        .page {
+            width: 100%;
+            max-width: 1450px;
+
+            margin: 0 auto;
+
+            padding: 50px 30px;
+        }
+
+        /* =====================================
+           PAGE HEADER
+        ===================================== */
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .badge {
+            display: inline-block;
+
+            margin-bottom: 15px;
+
+            padding: 7px 12px;
+
+            color: #38bdf8;
+
+            background:
+                rgba(56, 189, 248, 0.1);
+
+            border:
+                1px solid
+                rgba(56, 189, 248, 0.25);
+
+            border-radius: 20px;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .page-header h1 {
+            margin-bottom: 10px;
+            font-size: 36px;
+        }
+
+        .page-header p {
+            max-width: 780px;
+
+            color: #94a3b8;
+
+            line-height: 1.65;
+        }
+
+        /* =====================================
+           ERROR
+        ===================================== */
+
+        .error-card {
+            margin-bottom: 22px;
+
+            padding: 18px 20px;
+
+            color: #fecaca;
+
+            background:
+                rgba(239, 68, 68, 0.08);
+
+            border:
+                1px solid
+                rgba(239, 68, 68, 0.28);
+
+            border-radius: 10px;
+        }
+
+        .error-card strong {
+            color: #f87171;
+        }
+
+        /* =====================================
+           MAIN STUDIO GRID
+        ===================================== */
+
+        .studio-grid {
+            display: grid;
+
+            grid-template-columns:
+                390px 1fr;
+
+            gap: 22px;
+
+            align-items: start;
+        }
+
+        /* =====================================
+           PANELS
+        ===================================== */
+
+        .panel {
+            padding: 25px;
+
+            background: #0d1829;
+
+            border:
+                1px solid #1e293b;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 15px 35px
+                rgba(0, 0, 0, 0.16);
+        }
+
+        .controls-panel {
+            position: sticky;
+            top: 20px;
+        }
+
+        .panel-header {
+            margin-bottom: 22px;
+        }
+
+        .panel-header h2 {
+            margin-bottom: 7px;
+
+            font-size: 20px;
+        }
+
+        .panel-header p {
+            color: #94a3b8;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+        /* =====================================
+           FORM
+        ===================================== */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+
+            margin-bottom: 9px;
+
+            color: #e2e8f0;
+
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        select,
+        input[type="text"] {
+            width: 100%;
+
+            padding: 12px;
+
+            color: #ffffff;
+
+            background: #08111f;
+
+            border:
+                1px solid #334155;
+
+            border-radius: 8px;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            outline: none;
+        }
+
+        select:focus,
+        input[type="text"]:focus {
+            border-color: #38bdf8;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(56, 189, 248, 0.1);
+        }
+
+        select option {
+            color: #ffffff;
+            background: #0d1829;
+        }
+
+        .section-title {
+            margin:
+                25px 0 12px;
+
+            color: #38bdf8;
+
+            font-size: 11px;
+            font-weight: bold;
+
+            letter-spacing: 0.8px;
+        }
+
+        .option-card {
+            margin-bottom: 10px;
+
+            padding: 14px;
+
+            background: #101c2e;
+
+            border:
+                1px solid #1e293b;
+
+            border-radius: 9px;
+
+            transition: 0.2s;
+        }
+
+        .option-card:hover {
+            border-color: #334155;
+        }
+
+        .checkbox-row,
+        .radio-row {
+            display: flex;
+            align-items: flex-start;
+
+            gap: 10px;
+
+            color: #cbd5e1;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+
+            cursor: pointer;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            width: 16px;
+            height: 16px;
+
+            margin-top: 2px;
+
+            accent-color: #0284c7;
+
+            cursor: pointer;
+        }
+
+        .help-text {
+            margin-top: 7px;
+
+            color: #64748b;
+
+            font-size: 11px;
+
+            line-height: 1.4;
+        }
+
+        /* =====================================
+           RUN BUTTON
+        ===================================== */
+
+        .run-button {
+            width: 100%;
+
+            margin-top: 14px;
+
+            padding: 15px 18px;
+
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0284c7,
+                    #0369a1
+                );
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .run-button:hover {
+            background:
+                linear-gradient(
+                    135deg,
+                    #0ea5e9,
+                    #0284c7
+                );
+
+            transform:
+                translateY(-1px);
+        }
+
+        .run-button:disabled {
+            background: #334155;
+
+            cursor: wait;
+
+            transform: none;
+        }
+
+        /* =====================================
+           RESULTS
+        ===================================== */
+
+        .results {
+            display: flex;
+            flex-direction: column;
+
+            gap: 22px;
+        }
+
+        /* =====================================
+           METRIC CARDS
+        ===================================== */
+
+        .metrics-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 14px;
+        }
+
+        .metric-card {
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 20px;
+
+            background: #101c2e;
+
+            border:
+                1px solid #1e293b;
+
+            border-radius: 10px;
+        }
+
+        .metric-card::before {
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 3px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #0284c7,
+                    #38bdf8
+                );
+
+            content: "";
+        }
+
+        .metric-label {
+            margin-bottom: 9px;
+
+            color: #94a3b8;
+
+            font-size: 12px;
+        }
+
+        .metric-values {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+
+            gap: 5px;
+
+            color: #ffffff;
+
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .metric-arrow {
+            color: #64748b;
+        }
+
+        .new-value {
+            color: #4ade80;
+        }
+
+        /* =====================================
+           QUALITY UPGRADE
+        ===================================== */
+
+        .quality-comparison {
+            margin-top: 20px;
+
+            padding: 18px;
+
+            background:
+                rgba(34, 197, 94, 0.05);
+
+            border:
+                1px solid
+                rgba(34, 197, 94, 0.2);
+
+            border-radius: 10px;
+        }
+
+        .quality-comparison strong {
+            color: #4ade80;
+        }
+
+        .quality-comparison p {
+            margin-top: 6px;
+
+            color: #94a3b8;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+        /* =====================================
+           OPERATIONS
+        ===================================== */
+
+        .operations-list {
+            display: grid;
+
+            gap: 9px;
+
+            list-style: none;
+        }
+
+        .operations-list li {
+            padding: 12px 14px;
+
+            color: #cbd5e1;
+
+            background: #101c2e;
+
+            border:
+                1px solid #1e293b;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+        .operations-list li::before {
+            margin-right: 9px;
+
+            color: #4ade80;
+
+            font-weight: bold;
+
+            content: "✓";
+        }
+
+        /* =====================================
+           DOWNLOAD
+        ===================================== */
+
+        .download-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            flex-wrap: wrap;
+
+            gap: 18px;
+
+            padding: 22px;
+
+            background:
+                rgba(34, 197, 94, 0.06);
+
+            border:
+                1px solid
+                rgba(34, 197, 94, 0.25);
+
+            border-radius: 11px;
+        }
+
+        .download-info h3 {
+            margin-bottom: 6px;
+
+            color: #4ade80;
+        }
+
+        .download-info p {
+            color: #94a3b8;
+
+            font-size: 13px;
+        }
+
+        .download-button {
+            display: inline-block;
+
+            padding: 12px 18px;
+
+            color: #ffffff;
+
+            background: #16a34a;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+            transition: 0.2s;
+        }
+
+        .download-button:hover {
+            background: #22c55e;
+
+            transform:
+                translateY(-1px);
+        }
+
+        /* =====================================
+           PREVIEWS
+        ===================================== */
+
+        .preview-section {
+            display: grid;
+
+            grid-template-columns: 1fr;
+
+            gap: 22px;
+        }
+
+        .preview-title {
+            margin-bottom: 15px;
+
+            font-size: 17px;
+        }
+
+        .preview-description {
+            margin-bottom: 16px;
+
+            color: #94a3b8;
+
+            font-size: 12px;
+        }
+
+        .table-wrapper {
+            width: 100%;
+
+            max-height: 440px;
+
+            overflow: auto;
+
+            border:
+                1px solid #1e293b;
+
+            border-radius: 9px;
+        }
+
+        .data-table {
+            width: 100%;
+
+            min-width: 700px;
+
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            position: sticky;
+
+            top: 0;
+
+            z-index: 2;
+
+            padding: 12px;
+
+            color: #94a3b8;
+
+            background: #101c2e;
+
+            border-bottom:
+                1px solid #334155;
+
+            text-align: left;
+
+            font-size: 12px;
+
+            white-space: nowrap;
+        }
+
+        .data-table td {
+            padding: 12px;
+
+            color: #cbd5e1;
+
+            border-bottom:
+                1px solid #1e293b;
+
+            font-size: 13px;
+
+            white-space: nowrap;
+        }
+
+        .data-table tbody tr:hover {
+            background: #101c2e;
+        }
+
+        /* =====================================
+           EMPTY STATE
+        ===================================== */
+
+        .empty-state {
+            padding: 70px 30px;
+
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 70px;
+            height: 70px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin: 0 auto 20px;
+
+            color: #38bdf8;
+
+            background:
+                rgba(56, 189, 248, 0.1);
+
+            border-radius: 50%;
+
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .empty-state h2 {
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            max-width: 600px;
+
+            margin:
+                0 auto 24px;
+
+            color: #94a3b8;
+
+            line-height: 1.6;
+        }
+
+        .primary-link {
+            display: inline-block;
+
+            padding: 12px 18px;
+
+            color: #ffffff;
+
+            background: #0284c7;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+        /* =====================================
+           FOOTER
+        ===================================== */
+
+        .footer {
+            padding: 30px;
+
+            color: #64748b;
+
+            text-align: center;
+
+            font-size: 12px;
+        }
+
+        /* =====================================
+           RESPONSIVE
+        ===================================== */
+
+        @media (max-width: 1100px) {
+
+            .studio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .controls-panel {
+                position: static;
+            }
+
+            .metrics-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+
+                padding: 18px;
+
+                gap: 15px;
+            }
+
+            .page {
+                padding: 35px 15px;
+            }
+
+            .page-header h1 {
+                font-size: 29px;
+            }
+
+            .panel {
+                padding: 20px;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         NAVIGATION
+    ====================================== -->
+
+    <nav class="navbar">
+
+        <a
+            href="/"
+            class="logo"
+        >
+            DataForge AI
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="/">
+                Dashboard
+            </a>
+
+            <a href="/upload">
+                Upload
+            </a>
+
+            <a href="/datasets">
+                Datasets
+            </a>
+
+            <a
+                href="/clean"
+                class="active"
+            >
+                Cleaning Studio
+            </a>
+
+            <a href="/analytics">
+                Analytics
+            </a>
+
+            <a href="/ai">
+                AI Analyst
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================
+         PAGE
+    ====================================== -->
+
+    <main class="page">
+
+
+        <!-- HEADER -->
+
+        <header class="page-header">
+
+            <div class="badge">
+                PHASE 6 • DATA TRANSFORMATION
+            </div>
+
+            <h1>
+                Data Cleaning Studio
+            </h1>
+
+            <p>
+                Select a previously uploaded dataset,
+                configure your cleaning pipeline,
+                compare the original and cleaned data,
+                then export the transformed result as
+                CSV or Excel.
+            </p>
+
+        </header>
+
+
+        <!-- =====================================
+             ERROR
+        ====================================== -->
+
+        {% if error_message %}
+
+            <div class="error-card">
+
+                <strong>
+                    Cleaning Error:
+                </strong>
+
+                {{ error_message }}
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- =====================================
+             DATASETS AVAILABLE
+        ====================================== -->
+
+        {% if datasets %}
+
+
+            <section class="studio-grid">
+
+
+                <!-- =================================
+                     CLEANING CONTROLS
+                ================================== -->
+
+                <aside
+                    class="
+                        panel
+                        controls-panel
+                    "
+                >
+
+                    <div class="panel-header">
+
+                        <h2>
+                            Cleaning Pipeline
+                        </h2>
+
+                        <p>
+                            Choose a dataset and configure
+                            the transformations DataForge
+                            should apply.
+                        </p>
+
+                    </div>
+
+
+                    <form
+                        id="clean-form"
+                        action="/clean"
+                        method="post"
+                    >
+
+
+                        <!-- DATASET -->
+
+                        <div class="form-group">
+
+                            <label
+                                for="filename"
+                                class="form-label"
+                            >
+                                Select Dataset
+                            </label>
+
+
+                            <select
+                                id="filename"
+                                name="filename"
+                                required
+                            >
+
+                                <option value="">
+                                    Choose an uploaded dataset
+                                </option>
+
+
+                                {% for dataset in datasets %}
+
+                                    <option
+                                        value="{{ dataset[1] }}"
+                                        {% if selected_filename == dataset[1] %}
+                                            selected
+                                        {% endif %}
+                                    >
+
+                                        {{ dataset[1] }}
+                                        • {{ dataset[3] }} rows
+                                        • Quality {{ dataset[5] }}/100
+
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- RECORD CLEANING -->
+
+                        <div class="section-title">
+                            RECORD CLEANING
+                        </div>
+
+
+                        <div class="option-card">
+
+                            <label class="checkbox-row">
+
+                                <input
+                                    type="checkbox"
+                                    name="remove_duplicates"
+                                >
+
+                                <span>
+                                    Remove exact duplicate rows
+                                </span>
+
+                            </label>
+
+                        </div>
+
+
+                        <!-- MISSING VALUES -->
+
+                        <div class="section-title">
+                            MISSING VALUES
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label
+                                for="missing_strategy"
+                                class="form-label"
+                            >
+                                Row / Column Strategy
+                            </label>
+
+
+                            <select
+                                id="missing_strategy"
+                                name="missing_strategy"
+                            >
+
+                                <option value="keep">
+                                    Keep rows and columns
+                                </option>
+
+                                <option value="drop_rows">
+                                    Drop rows containing missing values
+                                </option>
+
+                                <option value="drop_columns">
+                                    Drop columns containing missing values
+                                </option>
+
+                            </select>
+
+
+                            <div class="help-text">
+                                Use this when you want to remove
+                                records or columns containing null values.
+                            </div>
+
+                        </div>
+
+
+                        <!-- NUMERIC MISSING -->
+
+                        <div class="form-group">
+
+                            <label
+                                for="numeric_fill_strategy"
+                                class="form-label"
+                            >
+                                Numeric Missing Values
+                            </label>
+
+
+                            <select
+                                id="numeric_fill_strategy"
+                                name="numeric_fill_strategy"
+                            >
+
+                                <option value="none">
+                                    Do not fill
+                                </option>
+
+                                <option value="zero">
+                                    Fill with zero
+                                </option>
+
+                                <option value="mean">
+                                    Fill with column mean
+                                </option>
+
+                                <option value="median">
+                                    Fill with column median
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- TEXT MISSING -->
+
+                        <div class="form-group">
+
+                            <label
+                                for="text_fill_strategy"
+                                class="form-label"
+                            >
+                                Text Missing Values
+                            </label>
+
+
+                            <select
+                                id="text_fill_strategy"
+                                name="text_fill_strategy"
+                            >
+
+                                <option value="none">
+                                    Do not fill
+                                </option>
+
+                                <option value="mode">
+                                    Use most common value
+                                </option>
+
+                                <option value="custom">
+                                    Use custom replacement
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- CUSTOM TEXT -->
+
+                        <div
+                            id="custom-text-group"
+                            class="form-group"
+                        >
+
+                            <label
+                                for="custom_text_value"
+                                class="form-label"
+                            >
+                                Custom Text Replacement
+                            </label>
+
+
+                            <input
+                                id="custom_text_value"
+                                name="custom_text_value"
+                                type="text"
+                                placeholder="Example: Unknown"
+                            >
+
+
+                            <div class="help-text">
+                                Used only when custom text
+                                replacement is selected.
+                            </div>
+
+                        </div>
+
+
+                        <!-- TEXT + SCHEMA -->
+
+                        <div class="section-title">
+                            TEXT AND SCHEMA
+                        </div>
+
+
+                        <div class="option-card">
+
+                            <label class="checkbox-row">
+
+                                <input
+                                    type="checkbox"
+                                    name="trim_spaces"
+                                >
+
+                                <span>
+                                    Trim leading and trailing
+                                    spaces from text values
+                                </span>
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="option-card">
+
+                            <label class="checkbox-row">
+
+                                <input
+                                    type="checkbox"
+                                    name="standardize_columns"
+                                >
+
+                                <span>
+                                    Standardize column names
+                                </span>
+
+                            </label>
+
+
+                            <div class="help-text">
+                                Example: Customer Name becomes
+                                customer_name.
+                            </div>
+
+                        </div>
+
+
+                        <div class="option-card">
+
+                            <label class="checkbox-row">
+
+                                <input
+                                    type="checkbox"
+                                    name="reset_index"
+                                >
+
+                                <span>
+                                    Reset the row index
+                                </span>
+
+                            </label>
+
+                        </div>
+
+
+                        <!-- EXPORT -->
+
+                        <div class="section-title">
+                            EXPORT FORMAT
+                        </div>
+
+
+                        <div class="option-card">
+
+                            <label class="radio-row">
+
+                                <input
+                                    type="radio"
+                                    name="export_format"
+                                    value="csv"
+                                    checked
+                                >
+
+                                <span>
+                                    CSV
+                                </span>
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="option-card">
+
+                            <label class="radio-row">
+
+                                <input
+                                    type="radio"
+                                    name="export_format"
+                                    value="xlsx"
+                                >
+
+                                <span>
+                                    Excel XLSX
+                                </span>
+
+                            </label>
+
+                        </div>
+
+
+                        <!-- RUN -->
+
+                        <button
+                            id="run-button"
+                            type="submit"
+                            class="run-button"
+                        >
+                            Run Cleaning Pipeline
+                        </button>
+
+
+                    </form>
+
+                </aside>
+
+
+                <!-- =================================
+                     RESULTS
+                ================================== -->
+
+                <div class="results">
+
+
+                    {% if original_metrics and cleaned_metrics %}
+
+
+                        <!-- BEFORE / AFTER -->
+
+                        <section class="panel">
+
+                            <div class="panel-header">
+
+                                <h2>
+                                    Before and After
+                                </h2>
+
+                                <p>
+                                    Cleaning results for
+                                    {{ selected_filename }}.
+                                </p>
+
+                            </div>
+
+
+                            <div class="metrics-grid">
+
+
+                                <!-- ROWS -->
+
+                                <div class="metric-card">
+
+                                    <div class="metric-label">
+                                        Rows
+                                    </div>
+
+                                    <div class="metric-values">
+
+                                        {{ original_metrics.rows }}
+
+                                        <span class="metric-arrow">
+                                            →
+                                        </span>
+
+                                        <span class="new-value">
+                                            {{ cleaned_metrics.rows }}
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- MISSING -->
+
+                                <div class="metric-card">
+
+                                    <div class="metric-label">
+                                        Missing Values
+                                    </div>
+
+                                    <div class="metric-values">
+
+                                        {{ original_metrics.missing_values }}
+
+                                        <span class="metric-arrow">
+                                            →
+                                        </span>
+
+                                        <span class="new-value">
+                                            {{ cleaned_metrics.missing_values }}
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- DUPLICATES -->
+
+                                <div class="metric-card">
+
+                                    <div class="metric-label">
+                                        Duplicate Rows
+                                    </div>
+
+                                    <div class="metric-values">
+
+                                        {{ original_metrics.duplicates }}
+
+                                        <span class="metric-arrow">
+                                            →
+                                        </span>
+
+                                        <span class="new-value">
+                                            {{ cleaned_metrics.duplicates }}
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- QUALITY -->
+
+                                <div class="metric-card">
+
+                                    <div class="metric-label">
+                                        Quality Score
+                                    </div>
+
+                                    <div class="metric-values">
+
+                                        {{ original_metrics.quality_score }}
+
+                                        <span class="metric-arrow">
+                                            →
+                                        </span>
+
+                                        <span class="new-value">
+                                            {{ cleaned_metrics.quality_score }}
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="quality-comparison">
+
+                                <strong>
+                                    Cleaning Pipeline Completed
+                                </strong>
+
+                                <p>
+                                    Original quality:
+                                    {{ original_metrics.quality_score }}/100
+                                    •
+                                    Cleaned quality:
+                                    {{ cleaned_metrics.quality_score }}/100
+                                    •
+                                    Original rows:
+                                    {{ original_metrics.rows }}
+                                    •
+                                    Final rows:
+                                    {{ cleaned_metrics.rows }}
+                                </p>
+
+                            </div>
+
+                        </section>
+
+
+                        <!-- OPERATIONS -->
+
+                        <section class="panel">
+
+                            <div class="panel-header">
+
+                                <h2>
+                                    Operations Applied
+                                </h2>
+
+                                <p>
+                                    These transformations were
+                                    executed during this cleaning run.
+                                </p>
+
+                            </div>
+
+
+                            <ul class="operations-list">
+
+                                {% for operation in operations %}
+
+                                    <li>
+                                        {{ operation }}
+                                    </li>
+
+                                {% endfor %}
+
+                            </ul>
+
+                        </section>
+
+
+                        <!-- DOWNLOAD -->
+
+                        {% if download_filename %}
+
+                            <section class="download-card">
+
+                                <div class="download-info">
+
+                                    <h3>
+                                        Cleaned Dataset Ready
+                                    </h3>
+
+                                    <p>
+                                        Your original dataset was
+                                        preserved. Download the cleaned
+                                        copy below.
+                                    </p>
+
+                                </div>
+
+
+                                <a
+                                    href="/download-cleaned/{{ download_filename }}"
+                                    class="download-button"
+                                >
+                                    Download Cleaned File
+                                </a>
+
+                            </section>
+
+                        {% endif %}
+
+
+                        <!-- PREVIEWS -->
+
+                        <section class="preview-section">
+
+
+                            <!-- ORIGINAL -->
+
+                            <article class="panel">
+
+                                <h2 class="preview-title">
+                                    Original Dataset Preview
+                                </h2>
+
+                                <p class="preview-description">
+                                    First 10 rows before cleaning.
+                                </p>
+
+
+                                <div class="table-wrapper">
+
+                                    {{ original_preview | safe }}
+
+                                </div>
+
+                            </article>
+
+
+                            <!-- CLEANED -->
+
+                            <article class="panel">
+
+                                <h2 class="preview-title">
+                                    Cleaned Dataset Preview
+                                </h2>
+
+                                <p class="preview-description">
+                                    First 10 rows after the
+                                    cleaning pipeline.
+                                </p>
+
+
+                                <div class="table-wrapper">
+
+                                    {{ cleaned_preview | safe }}
+
+                                </div>
+
+                            </article>
+
+
+                        </section>
+
+
+                    {% else %}
+
+
+                        <!-- NO CLEANING RUN YET -->
+
+                        <section class="panel empty-state">
+
+                            <div class="empty-icon">
+                                CL
+                            </div>
+
+                            <h2>
+                                Configure Your Cleaning Pipeline
+                            </h2>
+
+                            <p>
+                                Select an uploaded dataset on
+                                the left and choose the operations
+                                you want to apply. DataForge will
+                                preserve the original dataset,
+                                process a cleaned copy, compare
+                                quality metrics, and prepare the
+                                result for download.
+                            </p>
+
+                        </section>
+
+
+                    {% endif %}
+
+
+                </div>
+
+
+            </section>
+
+
+        {% else %}
+
+
+            <!-- =================================
+                 NO DATASETS
+            ================================== -->
+
+            <section class="panel empty-state">
+
+                <div class="empty-icon">
+                    DB
+                </div>
+
+                <h2>
+                    No Datasets Available
+                </h2>
+
+                <p>
+                    The Cleaning Studio needs a previously
+                    uploaded dataset. Upload a CSV, JSON,
+                    XLSX, or ZIP file first, then return
+                    here to configure the cleaning pipeline.
+                </p>
+
+                <a
+                    href="/upload"
+                    class="primary-link"
+                >
+                    Upload Dataset
+                </a>
+
+            </section>
+
+
+        {% endif %}
+
+
+    </main>
+
+
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
+
+    <footer class="footer">
+        DataForge AI • Dataset Intelligence Platform • Phase 6
+    </footer>
+
+
+    <!-- =====================================
+         JAVASCRIPT
+    ====================================== -->
+
+    <script>
+
+        const cleanForm =
+            document.getElementById(
+                "clean-form"
+            );
+
+        const runButton =
+            document.getElementById(
+                "run-button"
+            );
+
+        const textStrategy =
+            document.getElementById(
+                "text_fill_strategy"
+            );
+
+        const customTextGroup =
+            document.getElementById(
+                "custom-text-group"
+            );
+
+        const customTextInput =
+            document.getElementById(
+                "custom_text_value"
+            );
+
+
+        /*
+         * Show the custom replacement field only
+         * when custom text replacement is selected.
+         */
+
+        function updateCustomTextVisibility() {
+
+            if (
+                !textStrategy ||
+                !customTextGroup
+            ) {
+                return;
+            }
+
+            if (
+                textStrategy.value === "custom"
+            ) {
+
+                customTextGroup.style.display =
+                    "block";
+
+            } else {
+
+                customTextGroup.style.display =
+                    "none";
+
+            }
+
+        }
+
+
+        if (textStrategy) {
+
+            textStrategy.addEventListener(
+                "change",
+                updateCustomTextVisibility
+            );
+
+            updateCustomTextVisibility();
+
+        }
+
+
+        /*
+         * Prevent repeated submissions while
+         * DataForge is processing the dataset.
+         */
+
+        if (
+            cleanForm &&
+            runButton
+        ) {
+
+            cleanForm.addEventListener(
+                "submit",
+                function () {
+
+                    runButton.disabled =
+                        true;
+
+                    runButton.textContent =
+                        "Cleaning Dataset...";
+
+                }
+            );
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
