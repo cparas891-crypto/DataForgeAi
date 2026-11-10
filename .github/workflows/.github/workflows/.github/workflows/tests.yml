@@ -1,0 +1,40 @@
+name: DataForge Tests
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  test:
+
+    name: Run DataForge Test Suite
+
+    runs-on: windows-latest
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.15"
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Install test dependencies
+        run: python -m pip install pytest httpx
+
+      - name: Run DataForge tests
+        run: python -m pytest tests -v
