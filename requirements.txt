@@ -7,3 +7,4 @@ plotly
 reportlab
 openpyxl
 pyinstaller
+httpx2

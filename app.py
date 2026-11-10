@@ -1871,7 +1871,17 @@ async def upload_file(
                 dataframe.describe(
                     include="all"
                 )
-                .fillna("")
+            )
+
+            statistics_dataframe = (
+                statistics_dataframe
+                .astype(object)
+                .where(
+                    pd.notna(
+                        statistics_dataframe
+                    ),
+                    ""
+                )
             )
 
             stats = (
@@ -1882,7 +1892,6 @@ async def upload_file(
                     escape=True
                 )
             )
-
 
         except Exception:
 
