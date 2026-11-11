@@ -8,3 +8,7 @@ reportlab
 openpyxl
 pyinstaller
 httpx2
+sqlalchemy
+psycopg[binary]
+azure-storage-blob
+azure-identity

@@ -1,0 +1,46 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Git
+.git/
+.github/
+
+# IDE
+.vscode/
+.idea/
+
+# PyInstaller
+build/
+dist/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# DataForge runtime data
+uploads/*
+cleaned/*
+reports/*
+dataforge.db
+dataforge.db-journal
+
+# Environment / secrets
+.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log

@@ -1,0 +1,39 @@
+name: dataforge
+
+services:
+  database:
+    image: postgres:18
+    container_name: dataforge-postgres
+    environment:
+      POSTGRES_USER: dataforge
+      POSTGRES_PASSWORD: 
+      POSTGRES_DB: dataforge
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dataforge -d dataforge"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  dataforge:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dataforge-container
+    ports:
+      - "127.0.0.1:8010:8010"
+    environment:
+      DATABASE_URL: "postgresql+psycopg://dataforge:dataforge_dev_password@database:5432/dataforge"
+    volumes:
+      - ./uploads:/app/uploads
+      - ./cleaned:/app/cleaned
+      - ./reports:/app/reports
+    depends_on:
+      database:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
